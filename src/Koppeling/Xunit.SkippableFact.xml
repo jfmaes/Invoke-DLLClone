@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xunit.SkippableFact</name>
+    </assembly>
+    <members>
+        <member name="T:Xunit.Sdk.SkippableFactDiscoverer">
+            <summary>
+            Transforms <see cref="T:Xunit.SkippableFactAttribute"/> test methods into test cases.
+            </summary>
+        </member>
+        <member name="F:Xunit.Sdk.SkippableFactDiscoverer.diagnosticMessageSink">
+            <summary>
+            The diagnostic message sink provided to the constructor.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableFactDiscoverer.#ctor(Xunit.Abstractions.IMessageSink)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableFactDiscoverer"/> class.
+            </summary>
+            <param name="diagnosticMessageSink">The message sink used to send diagnostic messages</param>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableFactDiscoverer.Discover(Xunit.Abstractions.ITestFrameworkDiscoveryOptions,Xunit.Abstractions.ITestMethod,Xunit.Abstractions.IAttributeInfo)">
+            <inheritdoc />
+        </member>
+        <member name="T:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase">
+            <summary>
+            A test case that interprets <see cref="T:Xunit.SkipException"/> as a <see cref="T:Xunit.Sdk.TestSkipped"/> result.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase"/> class,
+            to be called only by the deserializer.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase.#ctor(System.String[],Xunit.Abstractions.IMessageSink,Xunit.Sdk.TestMethodDisplay,Xunit.Abstractions.ITestMethod,System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase"/> class.
+            </summary>
+            <param name="skippingExceptionNames">An array of the full names of the exception types which should be interpreted as a skipped test-.</param>
+            <param name="diagnosticMessageSink">The diagnostic message sink.</param>
+            <param name="defaultMethodDisplay">The preferred test name derivation.</param>
+            <param name="testMethod">The test method.</param>
+            <param name="testMethodArguments">The test method arguments.</param>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableFactDiscoverer.SkippableFactTestCase.RunAsync(Xunit.Abstractions.IMessageSink,Xunit.Sdk.IMessageBus,System.Object[],Xunit.Sdk.ExceptionAggregator,System.Threading.CancellationTokenSource)">
+            <inheritdoc />
+        </member>
+        <member name="T:Xunit.Sdk.SkippableTestMessageBus">
+            <summary>
+            Intercepts test results on the message bus and re-interprets
+            <see cref="T:Xunit.SkipException"/> as a <see cref="T:Xunit.Sdk.TestSkipped"/> result.
+            </summary>
+        </member>
+        <member name="F:Xunit.Sdk.SkippableTestMessageBus.inner">
+            <summary>
+            The original message bus to which all messages should be forwarded.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTestMessageBus.#ctor(Xunit.Sdk.IMessageBus,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableTestMessageBus"/> class.
+            </summary>
+            <param name="inner">The original message bus to which all messages should be forwarded.</param>
+            <param name="skippingExceptionNames">An array of the full names of the exception types which should be interpreted as a skipped test-.</param>
+        </member>
+        <member name="P:Xunit.Sdk.SkippableTestMessageBus.SkippedCount">
+            <summary>
+            Gets the number of tests that have been dynamically skipped.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTestMessageBus.Dispose">
+            <summary>
+            Disposes the inner message bus.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTestMessageBus.QueueMessage(Xunit.Abstractions.IMessageSinkMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Xunit.Sdk.SkippableTheoryDiscoverer">
+            <summary>
+            Transforms <see cref="T:Xunit.SkippableTheoryAttribute"/> test theories into test cases.
+            </summary>
+        </member>
+        <member name="F:Xunit.Sdk.SkippableTheoryDiscoverer.diagnosticMessageSink">
+            <summary>
+            The diagnostic message sink provided to the constructor.
+            </summary>
+        </member>
+        <member name="F:Xunit.Sdk.SkippableTheoryDiscoverer.theoryDiscoverer">
+            <summary>
+            The complex theory discovery process that we wrap.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTheoryDiscoverer.#ctor(Xunit.Abstractions.IMessageSink)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableTheoryDiscoverer"/> class.
+            </summary>
+            <param name="diagnosticMessageSink">The message sink used to send diagnostic messages</param>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTheoryDiscoverer.Discover(Xunit.Abstractions.ITestFrameworkDiscoveryOptions,Xunit.Abstractions.ITestMethod,Xunit.Abstractions.IAttributeInfo)">
+            <inheritdoc />
+        </member>
+        <member name="T:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase">
+            <summary>
+            A theory test case that will wrap the message bus.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase"/> class,
+            to be called only by the deserializer.
+            </summary>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase.#ctor(System.String[],Xunit.Abstractions.IMessageSink,Xunit.Sdk.TestMethodDisplay,Xunit.Abstractions.ITestMethod)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase"/> class.
+            </summary>
+            <param name="skippingExceptionNames">An array of the full names of the exception types which should be interpreted as a skipped test-.</param>
+            <param name="diagnosticMessageSink">The diagnostic message sink.</param>
+            <param name="defaultMethodDisplay">The preferred test name derivation.</param>
+            <param name="testMethod">The test method.</param>
+        </member>
+        <member name="M:Xunit.Sdk.SkippableTheoryDiscoverer.SkippableTheoryTestCase.RunAsync(Xunit.Abstractions.IMessageSink,Xunit.Sdk.IMessageBus,System.Object[],Xunit.Sdk.ExceptionAggregator,System.Threading.CancellationTokenSource)">
+            <inheritdoc />
+        </member>
+        <member name="T:Xunit.Skip">
+            <summary>
+            Static methods for dynamically skipping tests identified with
+            the <see cref="T:Xunit.SkippableFactAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:Xunit.Skip.If(System.Boolean,System.String)">
+            <summary>
+            Throws an exception that results in a "Skipped" result for the test.
+            </summary>
+            <param name="condition">The condition that must evaluate to <c>true</c> for the test to be skipped.</param>
+            <param name="reason">The explanation for why the test is skipped.</param>
+        </member>
+        <member name="M:Xunit.Skip.IfNot(System.Boolean,System.String)">
+            <summary>
+            Throws an exception that results in a "Skipped" result for the test.
+            </summary>
+            <param name="condition">The condition that must evaluate to <c>false</c> for the test to be skipped.</param>
+            <param name="reason">The explanation for why the test is skipped.</param>
+        </member>
+        <member name="T:Xunit.SkipException">
+            <summary>
+            The exception to throw to register a skipped test.
+            </summary>
+        </member>
+        <member name="M:Xunit.SkipException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.SkipException"/> class.
+            </summary>
+            <param name="reason">The reason the test is skipped.</param>
+        </member>
+        <member name="T:Xunit.SkippableFactAttribute">
+            <summary>
+            Attribute that is applied to a method to indicate that it is a fact that should
+            be run by the test runner.
+            The test may produce a "skipped test" result by calling
+            <see cref="M:Xunit.Skip.If(System.Boolean,System.String)"/> or otherwise throwing a <see cref="T:Xunit.SkipException"/>.
+            </summary>
+        </member>
+        <member name="M:Xunit.SkippableFactAttribute.#ctor(System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.SkippableFactAttribute"/> class.
+            </summary>
+            <param name="skippingExceptions">
+            Exception types that, if thrown, should cause the test to register as skipped.
+            </param>
+        </member>
+        <member name="T:Xunit.SkippableTheoryAttribute">
+            <summary>
+            Marks a test method as being a data theory. Data theories are tests which are
+            fed various bits of data from a data source, mapping to parameters on the test
+            method. If the data source contains multiple rows, then the test method is executed
+            multiple times (once with each data row). Data is provided by attributes which
+            derive from Xunit.Sdk.DataAttribute (notably, Xunit.InlineDataAttribute and Xunit.MemberDataAttribute).
+            The test may produce a "skipped test" result by calling
+            <see cref="M:Xunit.Skip.If(System.Boolean,System.String)"/> or otherwise throwing a <see cref="T:Xunit.SkipException"/>.
+            </summary>
+        </member>
+        <member name="M:Xunit.SkippableTheoryAttribute.#ctor(System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Xunit.SkippableTheoryAttribute"/> class.
+            </summary>
+            <param name="skippingExceptions">
+            Exception types that, if thrown, should cause the test to register as skipped.
+            </param>
+        </member>
+    </members>
+</doc>
