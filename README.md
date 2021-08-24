@@ -24,6 +24,8 @@ Dependencies are:
  * pvk2pfx.exe (optional)
  * signtool.exe (optional)
 
+**Make Sure you CD into the Invoke-DllClone directory first, the script uses relative paths** 
+
 ```
 Forward all exports of powrprof and take over the metadata except the signature
 Example Usage: Invoke-DllClone -Source C:\Windows\System32\powrprof.dll -Target C:\Malware\Evilpayload.dll -Output C:\Malware\powrprof.dll
