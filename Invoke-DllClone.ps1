@@ -165,10 +165,6 @@ Write-Output "Output:         $target_saveas"
 Write-Output "Signed Output:  $target_saveas_signed"
 Write-Output "---------------------------------------------- "
 
-# start the export table cloning using koppeling
-Write-Output "[*] Clones the export table from $source onto $target... using NetClone "
-$arg = "--target $target --reference $source --output $target_saveas"
-Start-Process -FilePath $netcloneBin -NoNewWindow -ArgumentList $arg -wait
 # Clean up existing ResourceHacker.exe that may be running
 Stop-Process -Name ResourceHacker -ea "SilentlyContinue"
 # Extract resources using Resource Hacker from source 
@@ -184,7 +180,6 @@ if (Select-String -Encoding Unicode -path $log_file -pattern "Failed") {
     break   
 }
 
-
 # Build Resource Hacker Script 
 $log_file = ($log_file_base + "\"+ $timestamp+ "_add.log")
 (Get-Content $resourcehacker_base_script) -replace('AAA', $target) | Set-Content $resourcehacker_script
@@ -198,6 +193,12 @@ $log_file = ($log_file_base + "\"+ $timestamp+ "_add.log")
 $arg = "-script $resourcehacker_script"
 start-process -FilePath $resourceHackerBin -ArgumentList $arg -NoNewWindow -Wait
 Remove-Item $resourcehacker_script
+
+# start the export table cloning using koppeling
+Write-Output "[*] Clones the export table from $source onto $target_saveas... using NetClone "
+$arg = "--target $target_saveas --reference $source --output $target_saveas"
+Start-Process -FilePath $netcloneBin -ArgumentList $arg -Wait
+Start-Sleep 1
 
 
 if ($Sign) {
